@@ -22,18 +22,15 @@ def read_signal(path):
 
 def show(x, y, title):
     plt.subplot(1, 2, 1)
-    plt.plot(x, y, "k")
-    plt.axhline(0, color="k")
+    plt.plot(x, y)
     plt.title(title + " (continuous)")
     plt.subplot(1, 2, 2)
-    plt.stem(x, y, linefmt="k-", markerfmt="ko", basefmt="k-")
-    plt.grid(axis="y", linestyle="--")
+    plt.stem(x, y)
     plt.title(title + " (discrete)")
-    plt.show()
 
 
 def test(name, x, y):
-    file = filedialog.askopenfilename(title="Choose the expected output file (Cancel to skip)")
+    file = filedialog.askopenfilename(title="Choose the expected output file")
     if file:
         SignalSamplesAreEqual(name, file, x, y)
 
@@ -46,7 +43,6 @@ def subtraction():
     result = []
     for i in range(min(len(y1), len(y2))):
         result.append(y1[i] - y2[i])
-   
     if len(y1) > len(y2):
         x = x1
         for i in range(len(y2), len(y1)):
@@ -57,6 +53,7 @@ def subtraction():
             result.append(y2[i])
     test("Subtraction", x, result)
     show(x, result, "Subtraction")
+    plt.show()
 
 
 def squaring():
@@ -67,6 +64,7 @@ def squaring():
         result.append(v * v)
     test("Squaring", x, result)
     show(x, result, "Squaring")
+    plt.show()
 
 
 def normalization():
@@ -83,6 +81,7 @@ def normalization():
             result.append(2 * (v - mn) / (mx - mn) - 1)
     test("Normalization", x, result)
     show(x, result, "Normalization")
+    plt.show()
 
 
 def accumulation():
@@ -95,66 +94,56 @@ def accumulation():
         result.append(total)
     test("Accumulation", x, result)
     show(x, result, "Accumulation")
+    plt.show()
 
 
 def quantization():
     file = filedialog.askopenfilename(title="Choose a signal")
-    use_bits = messagebox.askyesno("Quantization", "Do you want to enter number of bits?\n(Yes = bits, No = levels)")
+    use_bits = messagebox.askyesno("Quantization", "Enter number of bits?\n(Yes = bits, No = levels)")
     if use_bits:
         bits = simpledialog.askinteger("Quantization", "Number of bits:")
         levels = 2 ** bits
     else:
         levels = simpledialog.askinteger("Quantization", "Number of levels:")
         bits = int(math.log2(levels))
-
     x, y = read_signal(file)
     mn = min(y)
     mx = max(y)
     delta = (mx - mn) / levels
-
     indices = []
     encoded = []
     quantized = []
     errors = []
     for v in y:
-       
         index = levels - 1
         for i in range(levels):
             if v <= mn + (i + 1) * delta:
                 index = i
                 break
-        q = mn + index * delta + delta / 2  
+        q = mn + index * delta + delta / 2
         indices.append(index + 1)
-        encoded.append(format(index, "0" + str(bits) + "b"))   
+        encoded.append(format(index, "0" + str(bits) + "b"))
         quantized.append(q)
         errors.append(q - v)
-
-    print("Index  Encoded  Quantized  Error")
     for i in range(len(y)):
         print(indices[i], encoded[i], round(quantized[i], 3), round(errors[i], 3))
-
-    file = filedialog.askopenfilename(title="Choose the expected output file (Cancel to skip)")
+    file = filedialog.askopenfilename(title="Choose the expected output file")
     if file:
         if use_bits:
             QuantizationTest1(file, encoded, quantized)
         else:
             QuantizationTest2(file, indices, encoded, quantized, errors)
-
-    plt.subplot(1, 2, 1)
-    plt.plot(x, y, label="Original")
-    plt.step(x, quantized, where="mid", label="Quantized")
-    plt.legend()
-    plt.title("Quantized Signal")
-    plt.subplot(1, 2, 2)
-    plt.stem(x, errors)
-    plt.title("Quantization Error")
+    show(x, quantized, "Quantized")
     plt.show()
-
+    show(x, errors, "Error")
+    plt.show()
 
 
 root = tk.Tk()
 root.title("Task 2")
 root.geometry("250x350")
+
+tk.Button(root, text="Quantization", command=quantization).pack(pady=10)
 
 ops = tk.LabelFrame(root, text="Arithmetic Operations")
 ops.pack(pady=10, padx=10, fill="x")
@@ -162,7 +151,5 @@ tk.Button(ops, text="Subtraction", command=subtraction).pack(pady=5)
 tk.Button(ops, text="Squaring", command=squaring).pack(pady=5)
 tk.Button(ops, text="Normalization", command=normalization).pack(pady=5)
 tk.Button(ops, text="Accumulation", command=accumulation).pack(pady=5)
-
-tk.Button(root, text="Quantization", command=quantization).pack(pady=10)
 
 root.mainloop()

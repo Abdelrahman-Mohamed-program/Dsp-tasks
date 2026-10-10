@@ -1,6 +1,8 @@
+import os
 import tkinter as tk
 from tkinter import filedialog, simpledialog
 import matplotlib.pyplot as plt
+from Task1Test import AddSignalSamplesAreEqual, MultiplySignalByConst
 
 
 def read_signal(path):
@@ -16,44 +18,49 @@ def read_signal(path):
     return x, y
 
 
-def show(signals):
+def show(x, y, title):
     plt.subplot(1, 2, 1)
-    plt.title("Continuous")
-    for x, y in signals:
-        plt.plot(x, y)
-    plt.axhline(0, color="k")
+    plt.plot(x, y)
+    plt.title(title + " (continuous)")
     plt.subplot(1, 2, 2)
-    plt.title("Discrete")
-    for x, y in signals:
-        plt.stem(x, y, basefmt="k-")
-    plt.grid(axis="y", linestyle="--")
-    plt.show()
+    plt.stem(x, y)
+    plt.title(title + " (discrete)")
 
 
 def display():
-    files = filedialog.askopenfilenames()
-    signals = [read_signal(f) for f in files]
-    show(signals)
+    files = filedialog.askopenfilenames(title="Choose signals")
+    for file in files:
+        x, y = read_signal(file)
+        show(x, y, "Signal")
+    plt.show()
 
 
 def addition():
-    files = filedialog.askopenfilenames()
-    total = {}
-    for f in files:
-        x, y = read_signal(f)
-        for xi, yi in zip(x, y):
-            total[xi] = total.get(xi, 0) + yi
-    x = sorted(total)
-    result = [total[xi] for xi in x]
-    show([(x, result)])
+    files = filedialog.askopenfilenames(title="Choose signals")
+    x, result = read_signal(files[0])
+    for file in files[1:]:
+        x2, y2 = read_signal(file)
+        for i in range(len(y2)):
+            if i < len(result):
+                result[i] = result[i] + y2[i]
+            else:
+                x.append(x2[i])
+                result.append(y2[i])
+    AddSignalSamplesAreEqual(os.path.basename(files[0]), os.path.basename(files[1]), x, result)
+    show(x, result, "Addition")
+    plt.show()
 
 
 def multiplication():
-    file = filedialog.askopenfilename()
-    c = simpledialog.askfloat("Multiply", "Enter constant:")
+    file = filedialog.askopenfilename(title="Choose a signal")
+    c = simpledialog.askfloat("Multiplication", "Enter constant:")
     x, y = read_signal(file)
-    result = [v * c for v in y]
-    show([(x, result)])
+    result = []
+    for v in y:
+        result.append(v * c)
+    MultiplySignalByConst(c, x, result)
+    show(x, result, "Multiplication")
+    plt.show()
 
 
 root = tk.Tk()
