@@ -21,10 +21,12 @@ def show(signals):
     plt.title("Continuous")
     for x, y in signals:
         plt.plot(x, y)
+    plt.axhline(0, color="k")
     plt.subplot(1, 2, 2)
     plt.title("Discrete")
     for x, y in signals:
-        plt.stem(x, y)
+        plt.stem(x, y, basefmt="k-")
+    plt.grid(axis="y", linestyle="--")
     plt.show()
 
 

@@ -22,10 +22,12 @@ def read_signal(path):
 
 def show(x, y, title):
     plt.subplot(1, 2, 1)
-    plt.plot(x, y)
+    plt.plot(x, y, "k")
+    plt.axhline(0, color="k")
     plt.title(title + " (continuous)")
     plt.subplot(1, 2, 2)
-    plt.stem(x, y)
+    plt.stem(x, y, linefmt="k-", markerfmt="ko", basefmt="k-")
+    plt.grid(axis="y", linestyle="--")
     plt.title(title + " (discrete)")
     plt.show()
 
