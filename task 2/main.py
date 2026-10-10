@@ -26,7 +26,7 @@ def show(x, y, title):
     plt.axhline(0, color="k")
     plt.title(title + " (continuous)")
     plt.subplot(1, 2, 2)
-    plt.stem(x, y, linefmt="k-", markerfmt="ko", basefmt="k-")
+    plt.plot(x, y, "ko", markersize=2)
     plt.grid(axis="y", linestyle="--")
     plt.title(title + " (discrete)")
     plt.show()
