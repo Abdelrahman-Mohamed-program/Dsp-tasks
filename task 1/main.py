@@ -36,17 +36,22 @@ def display():
 
 
 def addition():
-    files = filedialog.askopenfilenames(title="Choose signals")
-    x, result = read_signal(files[0])
-    for file in files[1:]:
-        x2, y2 = read_signal(file)
-        for i in range(len(y2)):
-            if i < len(result):
-                result[i] = result[i] + y2[i]
-            else:
-                x.append(x2[i])
-                result.append(y2[i])
-    AddSignalSamplesAreEqual(os.path.basename(files[0]), os.path.basename(files[1]), x, result)
+    file1 = filedialog.askopenfilename(title="Choose the first signal")
+    file2 = filedialog.askopenfilename(title="Choose the second signal")
+    x1, y1 = read_signal(file1)
+    x2, y2 = read_signal(file2)
+    result = []
+    for i in range(min(len(y1), len(y2))):
+        result.append(y1[i] + y2[i])
+    if len(y1) > len(y2):
+        x = x1
+        for i in range(len(y2), len(y1)):
+            result.append(y1[i])
+    else:
+        x = x2
+        for i in range(len(y1), len(y2)):
+            result.append(y2[i])
+    AddSignalSamplesAreEqual(os.path.basename(file1), os.path.basename(file2), x, result)
     show(x, result, "Addition")
     plt.show()
 
