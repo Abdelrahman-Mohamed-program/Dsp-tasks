@@ -39,11 +39,20 @@ def test(name, x, y):
 def subtraction():
     file1 = filedialog.askopenfilename(title="Choose the first signal")
     file2 = filedialog.askopenfilename(title="Choose the second signal")
-    x, y1 = read_signal(file1)
-    x, y2 = read_signal(file2)
+    x1, y1 = read_signal(file1)
+    x2, y2 = read_signal(file2)
     result = []
-    for i in range(len(y1)):
+    for i in range(min(len(y1), len(y2))):
         result.append(y1[i] - y2[i])
+    # the remaining samples from the longer signal go to the result as they are
+    if len(y1) > len(y2):
+        x = x1
+        for i in range(len(y2), len(y1)):
+            result.append(y1[i])
+    else:
+        x = x2
+        for i in range(len(y1), len(y2)):
+            result.append(y2[i])
     show(x, result, "Subtraction")
     test("Subtraction", x, result)
 
