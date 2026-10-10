@@ -26,7 +26,7 @@ def show(x, y, title):
     plt.axhline(0, color="k")
     plt.title(title + " (continuous)")
     plt.subplot(1, 2, 2)
-    plt.plot(x, y, "ko", markersize=2)
+    plt.stem(x, y, linefmt="k-", markerfmt="ko", basefmt="k-")
     plt.grid(axis="y", linestyle="--")
     plt.title(title + " (discrete)")
     plt.show()
@@ -46,7 +46,7 @@ def subtraction():
     result = []
     for i in range(min(len(y1), len(y2))):
         result.append(y1[i] - y2[i])
-    # the remaining samples from the longer signal go to the result as they are
+   
     if len(y1) > len(y2):
         x = x1
         for i in range(len(y2), len(y1)):
@@ -117,15 +117,15 @@ def quantization():
     quantized = []
     errors = []
     for v in y:
-        # find the interval the sample falls in
+       
         index = levels - 1
         for i in range(levels):
             if v <= mn + (i + 1) * delta:
                 index = i
                 break
-        q = mn + index * delta + delta / 2   # midpoint of the interval
+        q = mn + index * delta + delta / 2  
         indices.append(index + 1)
-        encoded.append(format(index, "0" + str(bits) + "b"))   # index in binary with 'bits' digits
+        encoded.append(format(index, "0" + str(bits) + "b"))   
         quantized.append(q)
         errors.append(q - v)
 

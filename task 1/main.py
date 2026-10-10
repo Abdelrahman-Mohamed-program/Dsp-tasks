@@ -25,7 +25,7 @@ def show(signals):
     plt.subplot(1, 2, 2)
     plt.title("Discrete")
     for x, y in signals:
-        plt.plot(x, y, "o", markersize=2)
+        plt.stem(x, y, basefmt="k-")
     plt.grid(axis="y", linestyle="--")
     plt.show()
 
