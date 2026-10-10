@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, simpledialog
 import matplotlib.pyplot as plt
-from collections import Counter
 
 
 def read_signal(path):
@@ -18,14 +17,14 @@ def read_signal(path):
 
 
 def show(signals):
-    plt.title("Value Repeats")
-    plt.xlabel("Value")
-    plt.ylabel("Count")
+    plt.subplot(1, 2, 1)
+    plt.title("Continuous")
     for x, y in signals:
-        counts = Counter(y)
-        values = sorted(counts)
-        heights = [counts[v] for v in values]
-        plt.bar(values, heights, width=0.4)
+        plt.plot(x, y)
+    plt.subplot(1, 2, 2)
+    plt.title("Discrete")
+    for x, y in signals:
+        plt.stem(x, y)
     plt.show()
 
 

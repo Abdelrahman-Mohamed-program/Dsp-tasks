@@ -53,8 +53,8 @@ def subtraction():
         x = x2
         for i in range(len(y1), len(y2)):
             result.append(y2[i])
-    show(x, result, "Subtraction")
     test("Subtraction", x, result)
+    show(x, result, "Subtraction")
 
 
 def squaring():
@@ -63,8 +63,8 @@ def squaring():
     result = []
     for v in y:
         result.append(v * v)
-    show(x, result, "Squaring")
     test("Squaring", x, result)
+    show(x, result, "Squaring")
 
 
 def normalization():
@@ -79,8 +79,8 @@ def normalization():
             result.append((v - mn) / (mx - mn))
         else:
             result.append(2 * (v - mn) / (mx - mn) - 1)
-    show(x, result, "Normalization")
     test("Normalization", x, result)
+    show(x, result, "Normalization")
 
 
 def accumulation():
@@ -91,8 +91,8 @@ def accumulation():
     for v in y:
         total = total + v
         result.append(total)
-    show(x, result, "Accumulation")
     test("Accumulation", x, result)
+    show(x, result, "Accumulation")
 
 
 def quantization():
@@ -131,6 +131,13 @@ def quantization():
     for i in range(len(y)):
         print(indices[i], encoded[i], round(quantized[i], 3), round(errors[i], 3))
 
+    file = filedialog.askopenfilename(title="Choose the expected output file (Cancel to skip)")
+    if file:
+        if use_bits:
+            QuantizationTest1(file, encoded, quantized)
+        else:
+            QuantizationTest2(file, indices, encoded, quantized, errors)
+
     plt.subplot(1, 2, 1)
     plt.plot(x, y, label="Original")
     plt.step(x, quantized, where="mid", label="Quantized")
@@ -141,12 +148,6 @@ def quantization():
     plt.title("Quantization Error")
     plt.show()
 
-    file = filedialog.askopenfilename(title="Choose the expected output file (Cancel to skip)")
-    if file:
-        if use_bits:
-            QuantizationTest1(file, encoded, quantized)
-        else:
-            QuantizationTest2(file, indices, encoded, quantized, errors)
 
 
 root = tk.Tk()
