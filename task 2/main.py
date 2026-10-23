@@ -125,8 +125,10 @@ def quantization():
         encoded.append(format(index, "0" + str(bits) + "b"))
         quantized.append(q)
         errors.append(q - v)
+   
     for i in range(len(y)):
-        print(indices[i], encoded[i], round(quantized[i], 3), round(errors[i], 3))
+        print(encoded[i])
+        
     file = filedialog.askopenfilename(title="Choose the expected output file")
     if file:
         if use_bits:

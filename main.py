@@ -1,13 +1,12 @@
-import customtkinter as ctk
-# import customtkinter as ctk
-app = ctk.CTk()
-app.geometry("500x400")
-app.title("My App")
+import subprocess
+import sys
+import tkinter as tk
 
-label = ctk.CTkLabel(app, text="Hello World", font=("Arial", 24))
-label.pack(pady=30)
+root = tk.Tk()
+root.title("DSP Tasks")
+root.geometry("200x150")
 
-button = ctk.CTkButton(app, text="Click Me")
-button.pack()
+tk.Button(root, text="adding signals", command=lambda: subprocess.Popen([sys.executable, "main.py"], cwd="task 1")).pack(pady=20)
+tk.Button(root, text="quantization", command=lambda: subprocess.Popen([sys.executable, "main.py"], cwd="task 2")).pack(pady=20)
 
-app.mainloop()
+root.mainloop()

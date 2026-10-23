@@ -4,13 +4,6 @@
 # In[ ]:
 
 
-import os
-
-# Directory holding the TA-provided expected-output files, resolved
-# relative to this script so the tests run from any working directory.
-OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
-
-
 def ReadSignalFile(file_name):
     expected_indices=[]
     expected_samples=[]
@@ -38,16 +31,11 @@ def ReadSignalFile(file_name):
 
 
 def AddSignalSamplesAreEqual(userFirstSignal,userSecondSignal,Your_indices,Your_samples):
-    first=userFirstSignal.lower()
-    second=userSecondSignal.lower()
-    if(first=='signal1.txt' and second=='signal2.txt'):
-        file_name=os.path.join(OUTPUT_DIR, "Signal1+signal2.txt")
-    elif(first=='signal1.txt' and second=='signal3.txt'):
-        file_name=os.path.join(OUTPUT_DIR, "signal1+signal3.txt")
-    else:
-        print("Addition Test case failed, no expected output file for the given signals")
-        return
-    expected_indices,expected_samples=ReadSignalFile(file_name)
+    if(userFirstSignal=='Signal1.txt' and userSecondSignal=='Signal2.txt'):
+        file_name="output/Signal1+signal2.txt" # write here path of signal1+signal2
+    elif(userFirstSignal=='Signal1.txt' and userSecondSignal=='signal3.txt'):
+        file_name="output/signal1+signal3.txt" # write here path of signal1+signal3
+    expected_indices,expected_samples=ReadSignalFile(file_name)          
     if (len(expected_samples)!=len(Your_samples)) and (len(expected_indices)!=len(Your_indices)):
         print("Addition Test case failed, your signal have different length from the expected one")
         return
@@ -69,26 +57,23 @@ def AddSignalSamplesAreEqual(userFirstSignal,userSecondSignal,Your_indices,Your_
 
 def MultiplySignalByConst(User_Const,Your_indices,Your_samples):
     if(User_Const==5):
-        file_name=os.path.join(OUTPUT_DIR, "MultiplySignalByConstant-Signal1 - by 5.txt")
+        file_name="output/MultiplySignalByConstant-Signal1 - by 5.txt" # write here path of MultiplySignalByConstant-Signal1 - by 5.txt
     elif(User_Const==10):
-        file_name=os.path.join(OUTPUT_DIR, "MultiplySignalByConstant-signal2 - by 10.txt")
-    else:
-        print("Multiply by "+str(User_Const)+" Test case failed, no expected output file for the given constant")
-        return
-
-    expected_indices,expected_samples=ReadSignalFile(file_name)
+        file_name="output/MultiplySignalByConstant-signal2 - by 10.txt" # write here path of MultiplySignalByConstant-Signal2 - by 10.txt
+        
+    expected_indices,expected_samples=ReadSignalFile(file_name)      
     if (len(expected_samples)!=len(Your_samples)) and (len(expected_indices)!=len(Your_indices)):
         print("Multiply by "+str(User_Const)+ " Test case failed, your signal have different length from the expected one")
         return
     for i in range(len(Your_indices)):
         if(Your_indices[i]!=expected_indices[i]):
-            print("Multiply by "+str(User_Const)+" Test case failed, your signal have different indicies from the expected one")
+            print("Multiply by "+str(User_Const)+" Test case failed, your signal have different indicies from the expected one") 
             return
     for i in range(len(expected_samples)):
         if abs(Your_samples[i] - expected_samples[i]) < 0.01:
             continue
         else:
-            print("Multiply by "+str(User_Const)+" Test case failed, your signal have different values from the expected one")
+            print("Multiply by "+str(User_Const)+" Test case failed, your signal have different values from the expected one") 
             return
     print("Multiply by "+str(User_Const)+" Test case passed successfully")
 
