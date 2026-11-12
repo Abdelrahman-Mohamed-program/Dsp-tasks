@@ -1,0 +1,15 @@
+Task 3
+
+Add to your framework a menu named Frequency Domain that includes the following features:
+
+1)  The ability to apply Fourier transform to any input signal then displays frequency versus amplitude (normalize amplitude to be between 0 and 1) and frequency versus phase relations after asking the user to enter the sampling frequency in HZ.
+
+2)  Display the dominant frequencies (frequencies with amplitudes > 0.5).
+
+3)  Allow modify the amplitude and phase of the signal components.
+
+4)  Remove DC component (remove F(0)).
+
+5)  Allow signal reconstruction using IDFT.
+
+(Hint: due to the high similarity between DFT and IDFT try to have one smart code for both ;))
