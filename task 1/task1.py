@@ -1,5 +1,4 @@
 import os
-import tkinter as tk
 from tkinter import filedialog, simpledialog
 import matplotlib.pyplot as plt
 from Task1Test import AddSignalSamplesAreEqual, MultiplySignalByConst
@@ -66,17 +65,3 @@ def multiplication():
     MultiplySignalByConst(c, x, result)
     show(x, result, "Multiplication")
     plt.show()
-
-
-root = tk.Tk()
-root.title("Task 1")
-root.geometry("250x350")
-
-tk.Button(root, text="Display Signal", command=display).pack(pady=10)
-
-ops = tk.LabelFrame(root, text="Arithmetic Operations")
-ops.pack(pady=10, padx=10, fill="x")
-tk.Button(ops, text="Addition", command=addition).pack(pady=5)
-tk.Button(ops, text="Multiplication", command=multiplication).pack(pady=5)
-
-root.mainloop()

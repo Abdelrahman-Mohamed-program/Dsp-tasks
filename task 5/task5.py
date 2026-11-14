@@ -1,4 +1,3 @@
-import tkinter as tk
 from tkinter import filedialog
 import matplotlib.pyplot as plt
 from ConvTest import ConvTest
@@ -42,14 +41,3 @@ def convolution():
     ConvTest(x, result)
     show(x, result, "Convolution")
     plt.show()
-
-
-root = tk.Tk()
-root.title("Task 5")
-root.geometry("250x350")
-
-ops = tk.LabelFrame(root, text="Convolution")
-ops.pack(pady=10, padx=10, fill="x")
-tk.Button(ops, text="Convolve Two Signals", command=convolution).pack(pady=5)
-
-root.mainloop()

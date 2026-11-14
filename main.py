@@ -1,15 +1,74 @@
-import subprocess
+import os
 import sys
 import tkinter as tk
 
-root = tk.Tk()
-root.title("DSP Tasks")
-root.geometry("220x320")
+BASE = os.path.dirname(os.path.abspath(__file__))
+for folder in ["task 1", "task 2", "task 3", "task 4", "task 5"]:
+    sys.path.append(os.path.join(BASE, folder))
 
-tk.Button(root, text="adding signals", command=lambda: subprocess.Popen([sys.executable, "main.py"], cwd="task 1")).pack(pady=10)
-tk.Button(root, text="quantization", command=lambda: subprocess.Popen([sys.executable, "main.py"], cwd="task 2")).pack(pady=10)
-tk.Button(root, text="frequency domain", command=lambda: subprocess.Popen([sys.executable, "main.py"], cwd="task 3")).pack(pady=10)
-tk.Button(root, text="time domain", command=lambda: subprocess.Popen([sys.executable, "main.py"], cwd="task 4")).pack(pady=10)
-tk.Button(root, text="convolution", command=lambda: subprocess.Popen([sys.executable, "main.py"], cwd="task 5")).pack(pady=10)
+import task1
+import task2
+import task3
+import task4
+import task5
+
+
+def run(folder, function):
+    # open the file dialogs in that task's folder (task 1's test also needs this)
+    os.chdir(os.path.join(BASE, folder))
+    function()
+
+
+def section(column, text):
+    frame = tk.LabelFrame(column, text=text)
+    frame.pack(pady=10, padx=10, fill="x")
+    return frame
+
+
+def button(frame, text, folder, function):
+    tk.Button(frame, text=text, command=lambda: run(folder, function)).pack(pady=5, padx=10, fill="x")
+
+
+root = tk.Tk()
+root.title("DSP Framework")
+
+left = tk.Frame(root)
+left.pack(side="left", anchor="n")
+middle = tk.Frame(root)
+middle.pack(side="left", anchor="n")
+right = tk.Frame(root)
+right.pack(side="left", anchor="n")
+
+signals = section(left, "Signals")
+button(signals, "Display Signal", "task 1", task1.display)
+
+arithmetic = section(left, "Arithmetic Operations")
+button(arithmetic, "Addition", "task 1", task1.addition)
+button(arithmetic, "Subtraction", "task 2", task2.subtraction)
+button(arithmetic, "Multiplication", "task 1", task1.multiplication)
+button(arithmetic, "Squaring", "task 2", task2.squaring)
+button(arithmetic, "Normalization", "task 2", task2.normalization)
+button(arithmetic, "Accumulation", "task 2", task2.accumulation)
+
+quantization = section(left, "Quantization")
+button(quantization, "Quantize Signal", "task 2", task2.quantization)
+
+time = section(middle, "Time Domain")
+button(time, "Smoothing", "task 4", task4.smoothing)
+button(time, "Sharpening", "task 4", task4.sharpening)
+button(time, "Delay or Advance", "task 4", task4.delay_or_advance)
+button(time, "Folding", "task 4", task4.folding)
+button(time, "Delay or Advance Folded", "task 4", task4.shift_folded)
+button(time, "Remove DC", "task 4", task4.remove_dc)
+
+convolution = section(middle, "Convolution")
+button(convolution, "Convolve Two Signals", "task 5", task5.convolution)
+
+frequency = section(right, "Frequency Domain")
+button(frequency, "DFT", "task 3", task3.dft)
+button(frequency, "Modify Component", "task 3", task3.modify)
+button(frequency, "Reconstruct (IDFT)", "task 3", task3.reconstruct)
+button(frequency, "Remove DC", "task 3", task3.remove_dc)
+button(frequency, "IDFT from file", "task 3", task3.idft)
 
 root.mainloop()

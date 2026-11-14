@@ -1,6 +1,5 @@
 import cmath
 import math
-import tkinter as tk
 from tkinter import filedialog, simpledialog
 import matplotlib.pyplot as plt
 from signalcompare import SignalComapreAmplitude, SignalComaprePhaseShift
@@ -166,18 +165,3 @@ def reconstruct():
         x.append(n)
     show(x, result, "Reconstructed")
     plt.show()
-
-
-root = tk.Tk()
-root.title("Task 3")
-root.geometry("250x350")
-
-ops = tk.LabelFrame(root, text="Frequency Domain")
-ops.pack(pady=10, padx=10, fill="x")
-tk.Button(ops, text="DFT", command=dft).pack(pady=5)
-tk.Button(ops, text="Modify Component", command=modify).pack(pady=5)
-tk.Button(ops, text="Reconstruct (IDFT)", command=reconstruct).pack(pady=5)
-tk.Button(ops, text="Remove DC", command=remove_dc).pack(pady=5)
-tk.Button(ops, text="IDFT from file", command=idft).pack(pady=5)
-
-root.mainloop()

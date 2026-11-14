@@ -1,4 +1,3 @@
-import tkinter as tk
 from tkinter import filedialog, simpledialog
 import matplotlib.pyplot as plt
 from CompareSignals import SignalsAreEqual
@@ -131,19 +130,3 @@ def remove_dc():
         SignalsAreEqual("Remove DC", file, x, result)
     show(x, result, "Remove DC")
     plt.show()
-
-
-root = tk.Tk()
-root.title("Task 4")
-root.geometry("250x350")
-
-ops = tk.LabelFrame(root, text="Time Domain")
-ops.pack(pady=10, padx=10, fill="x")
-tk.Button(ops, text="Smoothing", command=smoothing).pack(pady=5)
-tk.Button(ops, text="Sharpening", command=sharpening).pack(pady=5)
-tk.Button(ops, text="Delay or Advance", command=delay_or_advance).pack(pady=5)
-tk.Button(ops, text="Folding", command=folding).pack(pady=5)
-tk.Button(ops, text="Delay or Advance Folded", command=shift_folded).pack(pady=5)
-tk.Button(ops, text="Remove DC", command=remove_dc).pack(pady=5)
-
-root.mainloop()

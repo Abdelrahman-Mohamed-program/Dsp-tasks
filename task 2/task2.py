@@ -1,5 +1,4 @@
 import math
-import tkinter as tk
 from tkinter import filedialog, simpledialog, messagebox
 import matplotlib.pyplot as plt
 from Task1Test import SignalSamplesAreEqual
@@ -139,19 +138,3 @@ def quantization():
     plt.show()
     show(x, errors, "Error")
     plt.show()
-
-
-root = tk.Tk()
-root.title("Task 2")
-root.geometry("250x350")
-
-tk.Button(root, text="Quantization", command=quantization).pack(pady=10)
-
-ops = tk.LabelFrame(root, text="Arithmetic Operations")
-ops.pack(pady=10, padx=10, fill="x")
-tk.Button(ops, text="Subtraction", command=subtraction).pack(pady=5)
-tk.Button(ops, text="Squaring", command=squaring).pack(pady=5)
-tk.Button(ops, text="Normalization", command=normalization).pack(pady=5)
-tk.Button(ops, text="Accumulation", command=accumulation).pack(pady=5)
-
-root.mainloop()

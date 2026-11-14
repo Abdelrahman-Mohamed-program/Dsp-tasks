@@ -1,18 +1,14 @@
 # Dsp-tasks
 
-# task 1:  
+All tasks run from one window:
 
-- cd task 1 & python3 main.py
+```
+python3 main.py
+```
+
 ## Task 2
 
 Arithmetic operations (subtraction, squaring, normalization, accumulation) and quantization.
-
-Run:
-
-```
-cd "task 2"
-python3 main.py
-```
 
 Testing (after each operation the app asks for the expected output file and prints the result in the terminal):
 
