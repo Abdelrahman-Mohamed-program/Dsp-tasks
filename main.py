@@ -3,7 +3,7 @@ import sys
 import tkinter as tk
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-for folder in ["task 1", "task 2", "task 3", "task 4", "task 5"]:
+for folder in ["task 1", "task 2", "task 3", "task 4", "task 5", "task 6"]:
     sys.path.append(os.path.join(BASE, folder))
 
 import task1
@@ -11,6 +11,7 @@ import task2
 import task3
 import task4
 import task5
+import task6
 
 
 def run(folder, function):
@@ -63,6 +64,11 @@ button(time, "Remove DC", "task 4", task4.remove_dc)
 
 convolution = section(middle, "Convolution")
 button(convolution, "Convolve Two Signals", "task 5", task5.convolution)
+
+correlation = section(middle, "Correlation")
+button(correlation, "Cross Correlation", "task 6", task6.cross_correlation)
+button(correlation, "Auto Correlation", "task 6", task6.auto_correlation)
+button(correlation, "Time Delay", "task 6", task6.time_delay)
 
 frequency = section(right, "Frequency Domain")
 button(frequency, "DFT", "task 3", task3.dft)
